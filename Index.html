@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rey de las Dos Tierras — Wilmar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700&family=Cinzel:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C8941A;
+  --gold-light: #E8B84B;
+  --gold-pale: #F7E3A0;
+  --lapis: #1A2A5C;
+  --lapis-dark: #0D1A3A;
+  --lapis-deep: #060D20;
+  --sand: #F2E8D0;
+  --papyrus: #EDE0C0;
+  --shadow: #1A0A00;
+  --white: #FFF9F0;
+  --scarlet: #8B1A1A;
+  --teal: #0D6B6B;
+  --glow: rgba(200,148,26,0.35);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--lapis-deep);
+  color: var(--sand);
+  font-family: 'Lora', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── HIEROGLYPHS AMBIENT ── */
+#ambient-canvas {
+  position: fixed; top:0; left:0; width:100%; height:100%;
+  pointer-events:none; z-index:0; opacity:0.06;
+}
+
+/* ── NAVBAR ── */
+nav {
+  position: fixed; top:0; left:0; right:0; z-index:100;
+  display:flex; align-items:center; justify-content:space-between;
+  padding: 0 2.5rem;
+  height: 64px;
+  background: linear-gradient(180deg, rgba(6,13,32,0.98) 0%, rgba(6,13,32,0.85) 100%);
+  border-bottom: 1px solid rgba(200,148,26,0.25);
+  backdrop-filter: blur(12px);
+}
+.nav-logo {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: 1rem;
+  color: var(--gold-light);
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 18px var(--glow);
+}
+.nav-links { display:flex; gap:2rem; list-style:none; }
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  color: var(--gold-pale);
+  text-decoration:none;
+  text-transform: uppercase;
+  transition: color 0.2s, text-shadow 0.2s;
+}
+.nav-links a:hover { color:#fff; text-shadow: 0 0 12px var(--glow); }
+
+/* ── HERO ── */
+#hero {
+  position: relative;
+  min-height: 100vh;
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center;
+  padding: 6rem 1.5rem 4rem;
+  overflow:hidden;
+}
+.hero-bg {
+  position:absolute; inset:0; z-index:0;
+  background:
+    radial-gradient(ellipse 70% 55% at 50% 30%, rgba(200,148,26,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 80% at 50% 100%, rgba(13,26,58,0.9) 0%, transparent 60%),
+    linear-gradient(180deg, #060D20 0%, #0D1428 60%, #060D20 100%);
+}
+.hero-eye {
+  position:absolute; top:50%; left:50%; transform:translate(-50%,-62%);
+  width: clamp(260px, 55vw, 600px);
+  opacity:0.13;
+  pointer-events:none;
+  z-index:1;
+}
+.hero-divider {
+  width: 180px; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 1.6rem auto;
+}
+.hero-subtitle {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 1.4rem;
+  position:relative; z-index:2;
+}
+.hero-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(2.2rem, 7vw, 5.5rem);
+  font-weight: 700;
+  line-height: 1.08;
+  color: var(--white);
+  text-shadow: 0 0 60px var(--glow), 0 0 120px rgba(200,148,26,0.2);
+  position:relative; z-index:2;
+  margin-bottom: 0.3rem;
+}
+.hero-title span { color: var(--gold-light); }
+.hero-tagline {
+  font-family: 'Lora', serif;
+  font-size: clamp(0.9rem, 2vw, 1.15rem);
+  color: var(--papyrus);
+  max-width: 520px;
+  line-height: 1.7;
+  margin: 0 auto 2.2rem;
+  opacity: 0.88;
+  position:relative; z-index:2;
+  font-style: italic;
+}
+.hero-badges {
+  display:flex; gap:1rem; flex-wrap:wrap; justify-content:center;
+  position:relative; z-index:2; margin-bottom:2.5rem;
+}
+.badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.35rem 1rem;
+  border: 1px solid rgba(200,148,26,0.4);
+  color: var(--gold-pale);
+  border-radius: 2px;
+  background: rgba(200,148,26,0.06);
+}
+.cta-group { display:flex; gap:1rem; flex-wrap:wrap; justify-content:center; position:relative; z-index:2; }
+.btn-primary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 2.2rem;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+  color: var(--lapis-deep);
+  border: none; border-radius: 2px;
+  cursor: pointer; text-decoration:none;
+  box-shadow: 0 0 28px rgba(200,148,26,0.4);
+  transition: all 0.25s;
+  display:inline-block;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow: 0 0 42px rgba(200,148,26,0.6); }
+.btn-secondary {
+  font-family: 'Cinzel', serif;
+  font-size: 0.82rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  padding: 0.85rem 2.2rem;
+  background: transparent;
+  color: var(--gold-pale);
+  border: 1px solid rgba(200,148,26,0.5);
+  border-radius: 2px;
+  cursor: pointer; text-decoration:none;
+  transition: all 0.25s;
+  display:inline-block;
+}
+.btn-secondary:hover { background: rgba(200,148,26,0.1); color:#fff; }
+
+/* ── ORNAMENT ── */
+.ornament {
+  display:flex; align-items:center; gap:1rem;
+  margin: 3rem auto 1.5rem;
+  max-width: 300px;
+}
+.ornament-line { flex:1; height:1px; background: linear-gradient(90deg, transparent, rgba(200,148,26,0.5)); }
+.ornament-line.r { background: linear-gradient(90deg, rgba(200,148,26,0.5), transparent); }
+.ornament-icon { color: var(--gold); font-size:1.2rem; }
+
+/* ── SECTIONS COMMON ── */
+section { position:relative; z-index:2; }
+.section-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.35em;
+  color: var(--gold);
+  text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.4rem, 3.5vw, 2.4rem);
+  font-weight: 700;
+  color: var(--white);
+  text-align: center;
+  text-shadow: 0 0 30px rgba(200,148,26,0.3);
+  margin-bottom: 0.8rem;
+}
+.section-intro {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--papyrus);
+  text-align: center;
+  max-width: 620px;
+  margin: 0 auto 3rem;
+  opacity: 0.85;
+}
+
+/* ── SYNOPSIS ── */
+#synopsis {
+  padding: 6rem 1.5rem;
+  background: linear-gradient(180deg, var(--lapis-deep) 0%, #0A1530 100%);
+}
+.synopsis-grid {
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  max-width: 960px;
+  margin: 0 auto;
+  border: 1px solid rgba(200,148,26,0.15);
+}
+.synopsis-card {
+  padding: 2.5rem;
+  background: rgba(13,26,58,0.6);
+  border: 1px solid rgba(200,148,26,0.1);
+  transition: background 0.3s;
+}
+.synopsis-card:hover { background: rgba(13,26,58,0.9); }
+.synopsis-card h3 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+.synopsis-card p {
+  font-family: 'Lora', serif;
+  font-size: 0.92rem;
+  line-height: 1.8;
+  color: var(--papyrus);
+  opacity: 0.88;
+}
+.synopsis-card.wide { grid-column: span 2; }
+
+/* ── POWER SYSTEM ── */
+#powers {
+  padding: 6rem 1.5rem;
+  background: linear-gradient(180deg, #0A1530 0%, #060D20 100%);
+}
+.souls-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.soul-card {
+  background: rgba(200,148,26,0.04);
+  border: 1px solid rgba(200,148,26,0.2);
+  border-top: 2px solid var(--gold);
+  padding: 1.6rem 1.4rem;
+  text-align:center;
+  transition: all 0.3s;
+  cursor:default;
+}
+.soul-card:hover {
+  background: rgba(200,148,26,0.09);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px rgba(200,148,26,0.15);
+}
+.soul-glyph {
+  font-size: 2rem;
+  margin-bottom: 0.7rem;
+  display:block;
+  filter: drop-shadow(0 0 8px var(--gold));
+}
+.soul-name {
+  font-family: 'Cinzel', serif;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--gold-light);
+  letter-spacing: 0.1em;
+  margin-bottom: 0.3rem;
+}
+.soul-desc {
+  font-size: 0.8rem;
+  color: var(--papyrus);
+  opacity: 0.78;
+  line-height: 1.6;
+}
+
+/* ── CHARACTERS ── */
+#characters {
+  padding: 6rem 1.5rem;
+  background: linear-gradient(180deg, #060D20 0%, #0A1530 100%);
+}
+.char-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.char-card {
+  background: linear-gradient(145deg, rgba(13,26,58,0.8), rgba(6,13,32,0.95));
+  border: 1px solid rgba(200,148,26,0.18);
+  padding: 2rem 1.8rem;
+  position:relative; overflow:hidden;
+  transition: all 0.3s;
+}
+.char-card::before {
+  content:''; position:absolute; top:0; left:0; right:0; height:2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+}
+.char-card:hover {
+  border-color: rgba(200,148,26,0.4);
+  box-shadow: 0 0 40px rgba(200,148,26,0.12);
+  transform: translateY(-3px);
+}
+.char-role {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.char-name {
+  font-family: 'Cinzel', serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 0.85rem;
+  line-height: 1.3;
+}
+.char-desc {
+  font-size: 0.88rem;
+  line-height: 1.72;
+  color: var(--papyrus);
+  opacity: 0.85;
+}
+.char-power {
+  margin-top: 1rem;
+  padding: 0.6rem 1rem;
+  background: rgba(200,148,26,0.07);
+  border-left: 2px solid var(--gold);
+  font-size: 0.8rem;
+  color: var(--gold-pale);
+  font-style: italic;
+}
+
+/* ── READER ── */
+#reader {
+  padding: 6rem 1.5rem;
+  background: linear-gradient(180deg, #0A1530 0%, #060D20 100%);
+}
+.reader-shell {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(6,13,32,0.9);
+  border: 1px solid rgba(200,148,26,0.2);
+  box-shadow: 0 0 80px rgba(200,148,26,0.06);
+}
+.reader-header {
+  background: linear-gradient(135deg, rgba(13,26,58,0.95), rgba(26,42,92,0.9));
+  border-bottom: 1px solid rgba(200,148,26,0.25);
+  padding: 1.4rem 2rem;
+  display:flex; align-items:center; justify-content:space-between;
+  flex-wrap:wrap; gap:1rem;
+}
+.reader-arc {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.25em;
+  color: var(--gold);
+  text-transform: uppercase;
+}
+.reader-nav-btns { display:flex; gap:0.5rem; }
+.reader-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  padding: 0.4rem 1rem;
+  background: rgba(200,148,26,0.12);
+  border: 1px solid rgba(200,148,26,0.3);
+  color: var(--gold-pale);
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 1px;
+}
+.reader-btn:hover, .reader-btn.active { background: var(--gold); color: var(--lapis-deep); border-color:var(--gold); }
+.reader-btn:disabled { opacity:0.35; cursor:not-allowed; }
+.chapter-list {
+  padding: 1rem 2rem;
+  border-bottom: 1px solid rgba(200,148,26,0.15);
+  display:flex; flex-wrap:wrap; gap:0.4rem;
+}
+.ch-pill {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.1em;
+  padding: 0.3rem 0.7rem;
+  border: 1px solid rgba(200,148,26,0.25);
+  color: var(--gold-pale);
+  background: transparent;
+  cursor:pointer;
+  transition: all 0.2s;
+  border-radius: 1px;
+}
+.ch-pill:hover, .ch-pill.active { background: var(--gold); color:var(--lapis-deep); border-color:var(--gold); }
+.reader-body { padding: 2.5rem 2.5rem 3rem; }
+.reader-chapter-num {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+.reader-chapter-title {
+  font-family: 'Cinzel Decorative', serif;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
+  color: var(--white);
+  margin-bottom: 0.6rem;
+  text-shadow: 0 0 20px rgba(200,148,26,0.25);
+}
+.reader-divider {
+  width:100%; height:1px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 1.4rem 0 2rem;
+}
+.reader-text {
+  font-family: 'Lora', serif;
+  font-size: 1rem;
+  line-height: 1.95;
+  color: var(--papyrus);
+  white-space: pre-wrap;
+  word-spacing: 0.03em;
+}
+.reader-text .dialogue {
+  color: var(--white);
+  font-style: italic;
+}
+.rpg-box {
+  display: inline-block;
+  background: rgba(200,148,26,0.1);
+  border: 1px solid var(--gold);
+  border-radius:2px;
+  padding: 0.15rem 0.55rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--gold-light);
+  letter-spacing: 0.1em;
+  margin: 0.1rem 0;
+}
+.reader-controls {
+  padding: 1.2rem 2rem;
+  border-top: 1px solid rgba(200,148,26,0.15);
+  display:flex; align-items:center; justify-content:space-between;
+  gap:1rem; flex-wrap:wrap;
+}
+.font-controls { display:flex; gap:0.5rem; align-items:center; }
+.font-btn {
+  background: rgba(200,148,26,0.08);
+  border: 1px solid rgba(200,148,26,0.25);
+  color: var(--gold-pale);
+  padding:0.3rem 0.6rem;
+  cursor:pointer;
+  font-size:0.85rem;
+  transition:all 0.2s;
+  border-radius:1px;
+}
+.font-btn:hover { background: rgba(200,148,26,0.2); }
+.progress-bar {
+  flex:1; height:3px;
+  background: rgba(255,255,255,0.08);
+  border-radius:2px; overflow:hidden;
+  min-width:80px;
+}
+.progress-fill {
+  height:100%;
+  background: linear-gradient(90deg, var(--gold), var(--gold-light));
+  transition: width 0.4s ease;
+}
+
+/* ── ARCS ── */
+#arcs {
+  padding: 6rem 1.5rem;
+  background: linear-gradient(180deg, #060D20 0%, #0A1530 100%);
+}
+.arcs-timeline {
+  max-width: 700px;
+  margin: 0 auto;
+  position:relative;
+}
+.arcs-timeline::before {
+  content:'';
+  position:absolute; top:0; bottom:0; left:24px;
+  width:1px;
+  background: linear-gradient(180deg, var(--gold), rgba(200,148,26,0.1));
+}
+.arc-item {
+  display:flex; gap:1.5rem; margin-bottom:2.2rem;
+  position:relative;
+}
+.arc-dot {
+  width:48px; height:48px; flex-shrink:0;
+  border-radius:50%;
+  background: radial-gradient(circle, var(--gold) 0%, rgba(200,148,26,0.2) 70%);
+  border: 1px solid var(--gold);
+  display:flex; align-items:center; justify-content:center;
+  font-family:'Cinzel',serif; font-size:0.75rem; font-weight:700;
+  color:var(--lapis-deep);
+  position:relative; z-index:1;
+  box-shadow: 0 0 16px rgba(200,148,26,0.4);
+}
+.arc-content { padding-top:0.5rem; }
+.arc-tag {
+  font-family:'Cinzel',serif; font-size:0.62rem; letter-spacing:0.25em;
+  color:var(--gold); text-transform:uppercase; margin-bottom:0.3rem;
+}
+.arc-title {
+  font-family:'Cinzel',serif; font-size:1rem; font-weight:700;
+  color:var(--white); margin-bottom:0.4rem;
+}
+.arc-desc {
+  font-size:0.87rem; line-height:1.7; color:var(--papyrus); opacity:0.82;
+}
+
+/* ── FOOTER ── */
+footer {
+  padding: 3rem 1.5rem;
+  border-top: 1px solid rgba(200,148,26,0.15);
+  text-align:center;
+  background: var(--lapis-deep);
+}
+footer p {
+  font-family:'Cinzel',serif; font-size:0.7rem; letter-spacing:0.2em;
+  color:rgba(200,148,26,0.5); text-transform:uppercase;
+}
+
+/* ── SCROLLBAR ── */
+::-webkit-scrollbar { width:6px; }
+::-webkit-scrollbar-track { background:var(--lapis-deep); }
+::-webkit-scrollbar-thumb { background:rgba(200,148,26,0.3); border-radius:3px; }
+::-webkit-scrollbar-thumb:hover { background:var(--gold); }
+
+/* ── ANIMATIONS ── */
+.fade-in { opacity:0; transform:translateY(24px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.fade-in.visible { opacity:1; transform:translateY(0); }
+
+@media (max-width:700px) {
+  .synopsis-grid { grid-template-columns:1fr; }
+  .synopsis-card.wide { grid-column:span 1; }
+  nav { padding:0 1rem; }
+  .nav-links { display:none; }
+  .reader-body { padding:1.5rem 1.2rem 2rem; }
+  .reader-header { padding:1rem 1.2rem; }
+  .reader-controls { padding:0.8rem 1.2rem; }
+  .chapter-list { padding:0.8rem 1rem; }
+}
+</style>
+</head>
+<body>
+
+<canvas id="ambient-canvas"></canvas>
+
+<!-- NAVBAR -->
+<nav>
+  <span class="nav-logo">𓂀 RDL2T</span>
+  <ul class="nav-links">
+    <li><a href="#synopsis">Sinopsis</a></li>
+    <li><a href="#characters">Personajes</a></li>
+    <li><a href="#powers">Sistema de Poder</a></li>
+    <li><a href="#reader">Leer</a></li>
+    <li><a href="#arcs">Sagas</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg"></div>
+  <!-- SVG Eye of Horus as hero emblem -->
+  <svg class="hero-eye" viewBox="0 0 400 250" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <ellipse cx="200" cy="120" rx="170" ry="90" stroke="#C8941A" stroke-width="1.5" stroke-dasharray="4 3"/>
+    <circle cx="200" cy="120" r="52" stroke="#C8941A" stroke-width="1.5"/>
+    <circle cx="200" cy="120" r="22" fill="#C8941A" opacity="0.5"/>
+    <line x1="30" y1="120" x2="148" y2="120" stroke="#C8941A" stroke-width="1.5"/>
+    <line x1="252" y1="120" x2="370" y2="120" stroke="#C8941A" stroke-width="1.5"/>
+    <path d="M200 172 L185 210 L200 200 L215 210 Z" fill="#C8941A" opacity="0.6"/>
+    <path d="M200 172 L160 195" stroke="#C8941A" stroke-width="1.2"/>
+    <path d="M160 195 L155 220" stroke="#C8941A" stroke-width="1.2"/>
+    <circle cx="200" cy="120" r="8" fill="#E8B84B"/>
+  </svg>
+
+  <div style="position:relative;z-index:2;width:100%;">
+    <p class="hero-subtitle">𓆣 Arco del Califa Poseído 𓆣</p>
+    <h1 class="hero-title">Rey de las<br><span>Dos Tierras</span></h1>
+    <div class="hero-divider"></div>
+    <p class="hero-tagline">Protegiendo mi Imperio con Flechas de Luz del Dios del Caos</p>
+    <div class="hero-badges">
+      <span class="badge">Fantasy Épico</span>
+      <span class="badge">LitRPG</span>
+      <span class="badge">Ucronía Teológica</span>
+      <span class="badge">Egipto & Sudán</span>
+    </div>
+    <div class="cta-group">
+      <a href="#reader" class="btn-primary">📖 Leer ahora</a>
+      <a href="#synopsis" class="btn-secondary">𓂀 Conocer la historia</a>
+    </div>
+  </div>
+
+  <div style="position:absolute;bottom:2.5rem;left:50%;transform:translateX(-50%);z-index:2;text-align:center;">
+    <div style="width:1px;height:40px;background:linear-gradient(180deg,transparent,var(--gold));margin:0 auto 0.4rem;"></div>
+    <span style="font-family:'Cinzel',serif;font-size:0.6rem;letter-spacing:0.25em;color:rgba(200,148,26,0.5);">DESPLAZA</span>
+  </div>
+</section>
+
+<!-- SYNOPSIS -->
+<section id="synopsis">
+  <div class="ornament fade-in">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">𓂀</span>
+    <div class="ornament-line r"></div>
+  </div>
+  <p class="section-label fade-in">La Historia</p>
+  <h2 class="section-title fade-in">El Reino Unido de Egipto y Sudán</h2>
+  <p class="section-intro fade-in">Marwan I, joven rey de quince años, debe proteger su imperio de las fuerzas del dios Seth y Apofis. En el día de su compromiso, un guerrero de sombras irrumpe en el palacio y despierta un poder que nadie esperaba.</p>
+
+  <div class="synopsis-grid">
+    <div class="synopsis-card fade-in">
+      <h3>El Protagonista</h3>
+      <p>Marwan I ostenta los cargos de Rey y Califa de las Dos Tierras, Presidente de Egipto, Reth de los Shilluk y Líder Supremo de las Fuerzas Armadas. A los quince años aún no ha despertado su don, algo que le consume de angustia ante la corte más importante del reino.</p>
+    </div>
+    <div class="synopsis-card fade-in">
+      <h3>La Amenaza</h3>
+      <p>La Hermandad del Faraón Negro sigue a Nophru-Ka, una momia viviente con poderes sobre las partes del alma egipcia. Su primer agente, Narmer Escorpio, se infiltra en el palacio usando el poder del Sheut —la sombra— para robar la Joya del Ojo de Horus.</p>
+    </div>
+    <div class="synopsis-card fade-in">
+      <h3>El Don Despertado</h3>
+      <p>Al recibir el brazalete con la Joya del Ojo de Horus, Marwan activa el sistema Samarajin: una interfaz jeroglífica que ve en realidad aumentada los niveles, poderes y amenazas de todo ser a su alrededor. Un Djinn Marid de voz espectral comienza a guiarle en combate.</p>
+    </div>
+    <div class="synopsis-card fade-in">
+      <h3>Los Cristales de la Soberanía</h3>
+      <p>Cuatro joyas marcan la soberanía del Rey de Egipto: el Ojo de Horus (azul), el Halcón Blanco, el Señor del Desierto (rojo) y el Señor de la Abundancia (negro). Nophru-Ka las necesita para resurgir completo y reclamar el Alto y Bajo Egipto.</p>
+    </div>
+    <div class="synopsis-card wide fade-in">
+      <h3>El Mundo</h3>
+      <p>Una ucronía de Egipto y Sudán unificados bajo una monarquía federal donde coexisten el Islam sufí, el Copticismo, las tradiciones tribales Dinka y Shilluk, y una tecnología avanzada procedente de Pandora Corps. Las Avispas —monjas guerreras con dones sobrenaturales— custodian el reino. Djinns, Ifrits, Marids y Semarajin son jerarquías reales de poder espiritual que se manifiestan en combate con jeroglíficos de luz neón.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHARACTERS -->
+<section id="characters">
+  <div class="ornament fade-in">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">𓅃</span>
+    <div class="ornament-line r"></div>
+  </div>
+  <p class="section-label fade-in">Los Elegidos</p>
+  <h2 class="section-title fade-in">Personajes Principales</h2>
+  <p class="section-intro fade-in">Guerreros, profetas y reyes cuyo destino está escrito en jeroglíficos de luz.</p>
+
+  <div class="char-grid">
+    <div class="char-card fade-in">
+      <p class="char-role">Protagonista · Samarajin</p>
+      <h3 class="char-name">Marwan I</h3>
+      <p class="char-desc">Rey y Califa de las Dos Tierras, hijo de Zanich y Neftis. A los quince años despierta su don al recibir el Ojo de Horus: una interfaz RPG que le permite ver el mundo en estadísticas jeroglíficas. Su poder primario es la Luz Blanca.</p>
+      <div class="char-power">⚡ Energía de Luz · Espada Khopesh mejorada · Interfaz Samarajin</div>
+    </div>
+    <div class="char-card fade-in">
+      <p class="char-role">Prometida · Tai-Seiti</p>
+      <h3 class="char-name">Mariam-Yandit II</h3>
+      <p class="char-desc">Hija de la heroína nacional y Apóstol General de Sudán. Líder en formación de la Guardia Real. Usa un arco tecnológico que dispara flechas de energía amarilla pura. Carácter aguerrido, mente estratégica, corazón apasionado.</p>
+      <div class="char-power">🏹 Flechas de Luz Amarilla · Armadura Tai-Seiti · Media Luna de Energía</div>
+    </div>
+    <div class="char-card fade-in">
+      <p class="char-role">Profetisa · Novicia Copta</p>
+      <h3 class="char-name">Neferu Basemat</h3>
+      <p class="char-desc">Sobrina del clérigo Shenoute. Viste hábito rojo con Ankht dorado. Posee el don del discernimiento y poderes de fuego carmesí que detectan y combaten presencias sobrenaturales. Pragmática, valiente, insistente en la verdad.</p>
+      <div class="char-power">🔥 Fuego Carmesí · Discernimiento Espiritual · Esferas de Combate</div>
+    </div>
+    <div class="char-card fade-in">
+      <p class="char-role">Antagonista · Hermandad</p>
+      <h3 class="char-name">Narmer Escorpio</h3>
+      <p class="char-desc">Ex Alto Primado degradado, el agente más violento de la Hermandad del Faraón Negro. Porta el poder del Sheut —control y robo de sombras—. Tiene un tatuaje de escorpión en la mejilla. Su motivación oculta: recuperar la sombra de su esposa muerta.</p>
+      <div class="char-power">🌑 Sheut · Invisibilidad · Tótem de Anubis · Arco de Sombras</div>
+    </div>
+    <div class="char-card fade-in">
+      <p class="char-role">Mentor · Djinn Marid</p>
+      <h3 class="char-name">El Samarajin</h3>
+      <p class="char-desc">Voz espectral acuosa y antigua que habita en la Joya del Ojo de Horus. Guía a Marwan a través de la interfaz jeroglífica, le advierte de peligros y le instruye en el uso de sus poderes. Arrogante, calculador, con voluntad propia.</p>
+      <div class="char-power">𓂀 Interfaz RPG · Eco de la Noche · Guardián de la Verdad</div>
+    </div>
+    <div class="char-card fade-in">
+      <p class="char-role">Reina · Ex Avispa</p>
+      <h3 class="char-name">Neftis</h3>
+      <p class="char-desc">Madre de Marwan y Primera Dama de Egipto. Antigua miembro de la Sagrada Orden de las Avispas. Lidera las fuerzas especiales del Reino. Porta la Espada Khopesh que luego entrega a su hijo, mejorada por Pandora Corps al cien por ciento.</p>
+      <div class="char-power">⚔️ Espada Khopesh · Voto del Nazareo · Habilidades Psíquicas</div>
+    </div>
+  </div>
+</section>
+
+<!-- POWER SYSTEM -->
+<section id="powers">
+  <div class="ornament fade-in">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">𓇯</span>
+    <div class="ornament-line r"></div>
+  </div>
+  <p class="section-label fade-in">Sistema de Poder</p>
+  <h2 class="section-title fade-in">Las Partes del Alma Egipcia</h2>
+  <p class="section-intro fade-in">Cada guerrero posee un don vinculado a una de las ocho partes del alma. Los jeroglíficos brillan en neón sobre su pecho al activarse. Tres fases de poder: Alma, Asimilación y Modo Deidad.</p>
+
+  <div class="souls-grid">
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓁹</span>
+      <div class="soul-name">KA</div>
+      <div class="soul-desc">El doble espiritual. Energía vital y fuerza física sobrehumana.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓅃</span>
+      <div class="soul-name">BA</div>
+      <div class="soul-desc">La personalidad. Transformación de forma y viaje entre planos.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓂀</span>
+      <div class="soul-name">IB</div>
+      <div class="soul-desc">El corazón. Control emocional y resistencia a las maldiciones.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓇋</span>
+      <div class="soul-name">REN</div>
+      <div class="soul-desc">El nombre verdadero. Control del viento y robo de identidades.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓃀</span>
+      <div class="soul-name">SHEUT</div>
+      <div class="soul-desc">La sombra. Control, robo e intercambio de sombras. Modo Deidad: Anubis.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓆣</span>
+      <div class="soul-name">AKH</div>
+      <div class="soul-desc">El espíritu glorificado. Poderes de luz y acceso a Dreamland.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓋴</span>
+      <div class="soul-name">SAHU</div>
+      <div class="soul-desc">El cuerpo incorruptible. Invulnerabilidad y regeneración.</div>
+    </div>
+    <div class="soul-card fade-in">
+      <span class="soul-glyph">𓆙</span>
+      <div class="soul-name">SEJEM</div>
+      <div class="soul-desc">La fuerza divina. Poder máximo reservado para los más altos rangos.</div>
+    </div>
+  </div>
+
+  <div style="max-width:700px;margin:3rem auto 0;padding:0 1rem;">
+    <div class="ornament fade-in" style="margin-top:0;">
+      <div class="ornament-line"></div>
+      <span class="ornament-icon">𓆣</span>
+      <div class="ornament-line r"></div>
+    </div>
+    <h3 style="font-family:'Cinzel',serif;font-size:0.85rem;letter-spacing:0.2em;color:var(--gold);text-align:center;text-transform:uppercase;margin:1.5rem 0 1rem;" class="fade-in">Jerarquía de los Djinn</h3>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;" class="fade-in">
+      <div style="padding:1.2rem;border:1px solid rgba(200,148,26,0.15);background:rgba(13,26,58,0.5);">
+        <div style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.4rem;">RANGO S — MARID</div>
+        <div style="font-size:0.83rem;color:var(--papyrus);line-height:1.6;">Los aristócratas. Conceden deseos, alteran la realidad. El Samarajin de Marwan pertenece a esta clase.</div>
+      </div>
+      <div style="padding:1.2rem;border:1px solid rgba(200,148,26,0.15);background:rgba(13,26,58,0.5);">
+        <div style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.4rem;">RANGO A — IFRIT</div>
+        <div style="font-size:0.83rem;color:var(--papyrus);line-height:1.6;">Maestros del fuego y el engaño. Neferu Basemat canaliza el fuego de un Ifrit.</div>
+      </div>
+      <div style="padding:1.2rem;border:1px solid rgba(200,148,26,0.15);background:rgba(13,26,58,0.5);">
+        <div style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.4rem;">RANGO B — SAMARAJIN</div>
+        <div style="font-size:0.83rem;color:var(--papyrus);line-height:1.6;">Guardianes de la Verdad. Su poder crece con la información extraída del enemigo.</div>
+      </div>
+      <div style="padding:1.2rem;border:1px solid rgba(200,148,26,0.15);background:rgba(13,26,58,0.5);">
+        <div style="font-family:'Cinzel',serif;font-size:0.7rem;letter-spacing:0.2em;color:var(--gold);margin-bottom:0.4rem;">RANGO C — JINN COMÚN</div>
+        <div style="font-size:0.83rem;color:var(--papyrus);line-height:1.6;">Invisibilidad, cambio de forma y velocidad sobrehumana entre planos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- READER -->
+<section id="reader">
+  <div class="ornament fade-in">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">𓏺</span>
+    <div class="ornament-line r"></div>
+  </div>
+  <p class="section-label fade-in">Leer la Novela</p>
+  <h2 class="section-title fade-in">Arco del Califa Poseído</h2>
+  <p class="section-intro fade-in">El primer arco de la saga SHEUT. Once capítulos donde Marwan I enfrenta su primera amenaza sobrenatural.</p>
+
+  <div class="reader-shell fade-in">
+    <div class="reader-header">
+      <div class="reader-arc">𓆣 Saga de Anubis · Arco del Califa Poseído</div>
+      <div class="reader-nav-btns">
+        <button class="reader-btn" id="btn-prev" onclick="changeChapter(-1)">← Anterior</button>
+        <button class="reader-btn" id="btn-next" onclick="changeChapter(1)">Siguiente →</button>
+      </div>
+    </div>
+    <div class="chapter-list" id="chapterList"></div>
+    <div class="reader-body">
+      <div class="reader-chapter-num" id="chapterNum">Capítulo 1</div>
+      <div class="reader-chapter-title" id="chapterTitle">Comprometido en el día de mi cumpleaños</div>
+      <div class="reader-divider"></div>
+      <div class="reader-text" id="chapterText"></div>
+    </div>
+    <div class="reader-controls">
+      <div class="font-controls">
+        <button class="font-btn" onclick="changeFontSize(-1)">A−</button>
+        <button class="font-btn" onclick="changeFontSize(1)">A+</button>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progressFill" style="width:9%"></div>
+      </div>
+      <span id="progressLabel" style="font-family:'Cinzel',serif;font-size:0.65rem;letter-spacing:0.15em;color:var(--gold-pale);">1 / 11</span>
+    </div>
+  </div>
+</section>
+
+<!-- ARCS -->
+<section id="arcs">
+  <div class="ornament fade-in">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon">𓆣</span>
+    <div class="ornament-line r"></div>
+  </div>
+  <p class="section-label fade-in">La Saga Completa</p>
+  <h2 class="section-title fade-in">Las Ocho Grandes Sagas</h2>
+  <p class="section-intro fade-in">El camino de Marwan I desde adolescente con su primer don hasta convertirse en el Halcón Blanco, Señor de las Dos Tierras.</p>
+
+  <div class="arcs-timeline">
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅰ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Sheut</div>
+        <div class="arc-title">Guerreros de la Sombra</div>
+        <div class="arc-desc">Marwan enfrenta a los portadores del Tótem de Anubis. La Hermandad del Faraón Negro busca el Cristal Azul. ~100 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅱ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Ren</div>
+        <div class="arc-title">El Dios del Viento</div>
+        <div class="arc-desc">Le roban su nombre verdadero y un impostor ocupa su trono. Marwan debe recuperar su identidad y el resto de los cristales. ~100 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅲ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Aj</div>
+        <div class="arc-title">Guerreros de los Espíritus</div>
+        <div class="arc-desc">El sistema de poder se expande: Jinns de Armas, elementos y Tótems de deidades egipcias. Se pierde definitivamente el Cristal Azul. ~150 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅳ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Ib</div>
+        <div class="arc-title">El Corazón del Desierto</div>
+        <div class="arc-desc">Una plaga de corazón cae sobre los líderes coptos. Nophru-Ka activa el segundo cristal. Guerreros rebeldes de Libia atacan el Reino. ~100 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅴ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Ba y Ka</div>
+        <div class="arc-title">Las Momias de Egipto</div>
+        <div class="arc-desc">Cinco momias semi-inmortales son revividas. Marwan viaja a los Shilluk para cumplir su deber como Reth. Nophru-Ka absorbe su energía vital. ~250 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅵ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Djet</div>
+        <div class="arc-title">Los Otros Samarajin</div>
+        <div class="arc-desc">Un líder de la Hermandad crea un partido político para derrocar a Cesarión. Nophru-Ka obtiene el Cristal Blanco y se recupera por completo. ~150 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅶ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga del Alma — Sejem</div>
+        <div class="arc-title">El Faraón Negro Nophru-Ka</div>
+        <div class="arc-desc">El faraón inmortal regresa completo. Aliados alienígenas Hijos de Apofis invaden. Guerra nacional. Marwan alcanza su poder máximo. ~300 capítulos.</div>
+      </div>
+    </div>
+    <div class="arc-item fade-in">
+      <div class="arc-dot">Ⅷ</div>
+      <div class="arc-content">
+        <div class="arc-tag">Saga Final — Halcón Blanco</div>
+        <div class="arc-title">Señor de las Dos Tierras</div>
+        <div class="arc-desc">Marwan a los 20 años, portador de las cuatro joyas, patrulla Egipto como El Halcón Blanco con identidad secreta. Cuatro esposas. El reino reconstruido. ~200 capítulos.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="ornament" style="margin-bottom:1.5rem;">
+    <div class="ornament-line"></div>
+    <span class="ornament-icon" style="font-size:1rem;">𓂀</span>
+    <div class="ornament-line r"></div>
+  </div>
+  <p>𓆣 Rey de las Dos Tierras — Wilmar · Todos los derechos reservados 𓆣</p>
+  <p style="margin-top:0.5rem;font-size:0.6rem;letter-spacing:0.15em;opacity:0.4;">Publicado en Wattpad · Universo Zanich / Dreamland</p>
+</footer>
+
+<script>
+const CHAPTERS = {
+  1: {
+    num: 1,
+    title: `Comprometido en el día de mi cumpleaños`,
+    text: `Aunque apenas tenía quince años, el compromiso era uno de los mejores momentos en la vida de un soberano, pero no para este joven rey. Y ahí estaba el Califa de los fieles de las dos tierras, Marwan I, muerto de miedo. No por el compromiso, ni por ser visto por tanta gente, sino porque no había despertado ningún poder. Todos los hombres y mujeres más importantes de su vasto Reino Unido de Egipto y Sudán. Líderes de tribus, etnarcas, valíes, estaban ahí para presenciar su gran momento. Pero lo más seguro es que se fueran con una profunda decepción. Toda la corte se reunió, grupo a grupo, frente a Marwan para entregarle dones. Valíes, altos políticos... y Cesarión, Premier de Egipto, en medio de ellos. Casi todos le sacaban medio cuerpo al joven rey, excepto algunas damas y ancianas. Muy elegantes con el hijab las jóvenes y sin ellos las de edad avanzada. Estaban juntos para felicitarle por el compromiso que contrajo con Mariam-Yandit II, hija de la líder de su guardia real, Mariam-Yandit I y heroína nacional. La Apóstol General de Sudán será mi suegra y yo aún no tengo ningún don, pensó Marwan sintiendo un nudo en su garganta. El sudor por la preocupación de encontrarse con su futura esposa se escurría por su piel peor que cuando entrenaba artes marciales con Alí Medjai y el padre de éste, Abdul. Recordar esos momentos en donde jugaban de niños, e incluso entrenaban y recitaban rezos juntos, le provocó tragar con fuerza. Se habían juramentado que demostraría sus poderes ambos cuando se volvieran a ver, pero ¿qué iba a decirle cuando fuera el momento de la demostración? ¿Y si pedía que fuera en ese instante, frente a todos? De solo imaginarlo se le revolvía el estómago. —¡Ay!— Susurró Marwan. Sus piernas las sentía débiles, como de trapo. Si estuviera parado ya se habría caído. El cuerpo del joven rey se movió solo intentando levantarse, pero al ver que Cesarión se acercaba a su trono con un regalo en mano, se detuvo. El Premier se arrodilló en la explanada y con un silbido, suave como viento, llamó la atención de Marwan quien se había distraído en sus pensamientos. —Majestad, Rey y Califa de las dos tierras, ¿qué le aburre de nuestra presencia? El joven rey negó con la cabeza y con un gesto de mano disimulado, aunque muy notorio para los aristócratas y damas que le visitaban en la Corte, llamó a Cesarión. —No es nada de eso, Cesarión, solo estoy pensando en algo— el rostro pálido y de piel delicada del joven rey, pero húmeda por el sudor, desvió su atención. El joven rey se mordió los labios al ver que más allá de Cesarión llegaba un auto negro que se detuvo en la alfombra roja que bajaba desde la escalera del trono de Marwan a más allá de la entrada al palacio. —Yo diría angustiado— intervino la reina, madre de Marwan, mientras saludaba con un gesto ligero de cabeza a los aristócratas. El joven suspiró y se limpió el sudor al ver que del auto bajaba el Apóstol Consular junto a una mujer anciana y arrugada, de la mano. Su madre, concluyó Marwan. El hombre cargaba en su mano una caja de regalo rectangular solo con un moño de adorno. —Ah, ya me imagino, mi señor—, una sonrisa burlesca apareció en el rostro de Cesarión. Se levantó de su reverenci...`
+  },
+  2: {
+    num: 2,
+    title: `Amenaza en la Corte`,
+    text: `No iba a faltar a su promesa, como tanto temía, sino que estaba listo para mostrarle el poder que había conseguido. Aunque no lo entendiera en realidad. Pero no solo estaba ansioso por ello y ruborizado por una simple demostración, sino por saber que tanto había cambiado en estos cinco años, que tan alta se había vuelto, sí lo sería más que él, sí le había crecido el cabello, el cuerpo y... Sus pensamientos se detuvieron cuando Mariam-Yandit II, su prometida, se quitaba los collares de su cabeza y después la capucha estando ya en la escalera, justo antes de la explanada de su trono. Sintió ganas de abalanzarse y quitar ese manto de una vez por todas para verla por fin, pero con escasa fuerza se contuvo. Muchos en los alrededores comenzaron a cuchichear, su madre comenzó a saludar a Mariam-Yandit I con un abrazo, mientras lentamente su prometida se revelaba frente a él. Marwan elevó su mano, tragó con fuerza y con los ojos brillantes de curiosidad tomó la tela, pero esta se quitó sola dejando ver a la joven que estaba detrás. Con una armadura ceñida al cuerpo, teniendo protectores pectorales, en hombros, cuello, abdomen, falda, muslo, rodilla y piernas de color oscuro como el ébano. La parte ceñida era de color cobriza con forma anillada. Y sobresalía de su espalda un aparato con forma de arco sin hilo para tensar. El cabello de Mariam-Yandit II había crecido mucho y estaba amarrado en muchas guedejas similares a los rastas. Marwan suspiró, con las mejillas aún más calientes que antes al ver su rostro, más afilado, serio, sus ojos oscuros como la noche y su piel azabache brillando bajo la luz. Delicada de mejillas como hacía cinco años, mucho más grande y corpulenta, más madura. Mucho más hermosa. No estaba usando un vestido, sino el traje de la Guardia Real, pero aún así se veía maravillosa. Una sonrisa apareció en sus mejillas, sin poder ocultar su felicidad. Mariam-Yandit II le entregó su mano y Marwan la tomó sin pensarlo. Él miró a su madre y a su futura suegra quienes asistieron al unísono. —¿Tan hermosa estoy, majestad?— susurró su prometida y subió, tomada de la mano, a la explanada en el lado derecho del trono de Marwan. —¡Viva el Rey y Califa Marwan, Señor de las dos tierras y su futura esposa, la siguiente líder de la Guardia Real!— gritó Cesarión y todos los demás en la Corte gritaron—¡Viva! —al unísono" incluso las madres de ambos. Marwan volvió a ver a Mariam-Yandit II encontrándose con una advertencia en un rectángulo rojo la cual decía abajo: [sin información]. Marwan frunció el ceño, ¿qué era esa señal sobre la cabeza de su prometida? Algo raro estaba pasando y no debía ignorarlo. Se sentó en su trono con gesto confiado, moviendo su larga capa blanca con bordado de laurel dorado, y comenzó la celebración con copas, de jugo de manzana por la ley contra el alcohol, y en vez de aceitunas, el añadido en las copas eran dátiles atravesadas traídos desde "LTE". Marwan volvió a ver a Mariam-Yandit II y ella lo miró de reojo riendo. El joven rey se mordió el labio al ver que le guiñó y por fin entendió porque un día como ese, no su décimo quinto cumpleaños, sino su compromiso, era el mejor día en la vida de un Soberano. Volvió a subir ...`
+  },
+  3: {
+    num: 3,
+    title: `Un misterio por resolver`,
+    text: `Marwan tomó un tenedor fino en sus manos y, preparado para comer, se detuvo al notar a través de una pared una advertencia de peligro salir en forma de rectángulo rojo. Este tenía escrito algo que pasó de jeroglífico a Árabe. [ADVERTENCIA: Enemigo en la Corte] y seguido una voz dijo: Levántate y síguelo. Su tono era lejano, espectral, como un eco en su cabeza que le hizo levantarse. Apartó la silla causando que se estremeciera la mesa. Todos reaccionaron ante Marwan quien de golpe salió de la sala de cena directo a un pasillo de la residencia. Los sirvientes en la puerta se quedaron atónitos al verlo pasar con prisa. El rey se apresuró por el pasillo y dobló en dirección a el rectángulo flotante.`
+  },
+  4: {
+    num: 4,
+    title: `Sombras`,
+    text: `—Claro, Apóstol General, futura suegra, era como un hombre compuesto de sombras, con una máscara de chacal similar al dios Anubis, tatuajes brillantes como jeroglíficos en sus manos y flotando en medio de su pecho— Marwan caminó hasta llegar en donde estaba aquel hombre. —Aquí mismo fue donde desapareció como si se sumergiera en el suelo. Fue él quien me atacó con sombras, destruyó la puerta y causó esos rasguños en la alfombra y pared con puños gigantes—. —¿Estás diciendo, su majestad, que hay alguien con un poder de sombras o una sombra detrás de ti?— intervino su prometida. Ambas madres se miraron con preocupación. —Si, así fue cómo pasó. Por eso tengo esta espada en mi mano— la levantó frente a todas. —Si, eso explica el desorden— Mariam-Yandit II señaló el lugar en donde estaban los regalos al fondo de su habitación. Marwan bajó la cabeza con vergüenza por el estado en que su desesperación había dejado todo. —Pero lo que no entiendo es que ni mi madre, ni la muy respetable reina, ni los maestros que estaban con nosotros en la mesa, muy experimentados en el conocimiento de las fuerzas del caos, ni yo notamos al intruso. ¿Cómo pues, mi rey, supiste que estaba aquí?— —Yo...— fue lo único que Marwan pudo decir.`
+  },
+  5: {
+    num: 5,
+    title: `Lo que nadie ve`,
+    text: `—Esta amenaza no es para tomarse a la ligera, casi muere hoy, en su décimo quinto cumpleaños y compromiso de bodas con Mariam-Yandit II, mi hijo el rey— habló la reina conmovida. Las miradas de todos se desviaron a otras direcciones. —Por cierto, ¿dónde está el rey?— Cesarión esta vez no alzó la mano. —Lo enviamos con mi hija para que descansara porque la agitación lo había dejado nervioso. Puede que por usar su don, como me pasaba en tiempo pasado— explicó Mariam-Yandit I. —¡El rey está en peligro!— dijo tajante la sobrina del clérigo alarmando a todos. ---- —Marwan, ¿a dónde nos dirigimos?— Marwan vió moverse cerca de ellos el rectángulo rojo de advertencia. En todo el tiempo que habían corrido no pudieron darle alcance. El intruso había aprovechado para alejarse, pero siempre que estaban cerca, frente a él, era como si estuviera del otro lado de la pared. Salieron del pasillo y Marwan se detuvo. El rectángulo no parpadeaba, estaba firme frente a ellos, pero como antes, detrás de la pared. Se movió súbitamente a la derecha, Marwan intentó seguirlo pero cuando iba a caer por las escaleras fue detenido por su prometida. —Oye, ¿quieres morir? ¿No viste que estábamos cerca de las escaleras?— Mariam-Yandit II hacía fuerza para sostenerlo de su brazo izquierdo mientras él flotaba sostenido al suelo por un solo pie. La vista desde esa altura se acercaba y alejaba peligrosa, Marwan suspiró viendo como el sudor de su frente caía al suelo estrellándose hasta volverse solo gotas dispersas. Casi me pasa, pensó sintiéndose afortunado. Una caída de más de veinte escalones, seguramente lo hubieran dejado en mal estado o lisiado y teniendo que recurrir a los milagros de los sanadores o al quirófano de Trans-human Foundation. El rostro de Mariam-Yandit II se arrugó y tiró de él con más fuerza hasta que ambos estuvieron acostados, uno frente al otro. —Gracias, eh, por salvarme— dijo Marwan con sus ojos fijos en los labios de su prometida. El rectángulo rojo de ella había desaparecido, pero aún no sabía porqué tenía uno. ¿Sería que el intruso la estaba buscando a ella y no a él? —Si sigues ruborizándote ya no te diré copito de nieve, sino tomate— ambos se sentaron y ella le acomodó los mechones del cabello. Marwan repelió su mano, nervioso. —Por cierto, no necesitas verme los labios para hablar conmigo—. El rectángulo rojo apareció detrás de Mariam-Yandit II mientras ella seguía hablando. De la pared comenzó a emanar una oscuridad de la que salió el medio cuerpo del intruso con un arco tensado negro, sus tatuajes de jeroglíficos, al igual que el de su pecho, iluminados. —Maldita seas, en nombre de Anubis, dios de los Muertos, hija de la profetisa enemiga— sus palabras fueron traducidas a los ojos de Marwan quien actuó pronto y cubrió con su cuerpo a su prometida. La flecha negra se enterró en la espalda del joven rey.`
+  },
+  6: {
+    num: 6,
+    title: `Lo que nadie oye`,
+    text: `—No, emérita, solo tengo mi mano cerca de mi rostro. Es porque no escucho bien— dijo con tono militar. Mariam-Yandit II se golpeó la cabeza al escuchar la explicación. Mariam-Yandit II suspiró con molestia. No tenía tiempo para eso, por lo que decidió continuar. Marwan se cayó a un lado en el suelo. Ella se agachó junto a él para acomodarlo. —Necesito saber tu posición y si estás cerca de la zona de monitoreo de los pasillos para que ustedes se reúnan con Neferu Basemat, sobrina del clérigo Shenoute, cerca de las escalares. Ella está enfrentándose sola contra el intruso.— —Emérita, la zona de monitoreo no está operativa, descubrimos que hubo un sabotaje. Puede ser por eso que no pudimos anticipar el ataque— el hombre comenzó a moverse y su mano dejó de enfocarle para mostrar unas sillas blancas con cojín de alfombra de colores y dos sillones similares. —Oficial Kamil, levanta la mano que me estás mareando— Mariam-Yandit II puso los ojos en blanco. —No fue por eso que no lo pudimos encontrar, sino porque es invisible o eso parece— Kamil levantó las cejas de sorpresa. —Reúnete con varios, yo iré a buscar a mi madre y a la reina. Fuera— la transmisión terminó. Seleccionó un ícono con forma de casa en el que aparecía una luz roja parpadeante en medio de un mapa azul, parecido al de juego de pacman, en donde se indicaba donde se encontraba qué habitación, pasadizo o lugar importante. Ella agrandó el mapa con los dedos encontrándose con un gran cubo delante de ellos en el pasadizo que decía 'habitación de reuniones' y justo a la izquierda seguía el pasadizo hasta la habitación de servicio. Bien, estoy cerca, concluyó Mariam-Yandit II viendo con aprehensión a Marwan. Le acarició las mejillas, pero una sirena la hizo voltear. Unas luces rojas en el techo comenzaron a parpadear por todo el pasadizo. Kamil había dado aviso del lugar en el que se encontraba y había logrado restablecer las alarmas. A diferencia de otros sistemas de seguridad palaciegos, las alarmas sonaban para indicar el lugar de peligro para que si lo oías cerca, siendo personal de servicio o invitado, fueras en dirección contraria o a ese lugar en caso de ser de seguridad. Dos puntos azules se acercaban a toda velocidad desde el pasillo a la izquierda, cercano a la 'habitación de reuniones'. Pasaron y se acercaron. Eran personal de seguridad con uniforme militar y metralletas en mano. Dos soldados, una mujer y un hombre, boinas rojas. Mariam-Yandit II levantó la mano, la soldado apresuró el paso, mientras el hombre levantó el arma apuntando en dirección detrás de la joven Tai-Seiti. —¿Qué le ocurre al rey, mi señora?— Preguntó la joven quien comenzó a examinar a Marwan con la mano abriendo sus párpados y usando una linterna en sus ojos. —Fue un ataque, no era de bala o cuchillo, sino uno invisible— —¡¿Invisible?!— Exclamó la soldado con los párpados muy abiertos. —Esto nos supera— comentó el soldado quien había adelantado el paso y apuntando con la mira en dirección a la vuelta del pasillo. La luz y la sirena se detuvieron de pronto y sonaron más lejano. El área de combate había cambiado. —Si, por eso quiero que se reúnan fuera del palacio, estar en los pasillos contra una amenaza que...`
+  },
+  7: {
+    num: 7,
+    title: `Secreto`,
+    text: `con un cansancio que le cargaba los hombros y trataba de cerrar sus párpados. Pero no podía dormir, tenía algo que recordar. Lo que le había despertado de tan mala manera. Mientras más se esforzaba en recordar parte del sueño más nublada sentía su memoria, como si un mal golpe le hubiera noqueado. Su madre, su futura suegra Mariam-Yandit I y su prometida lo veían con preocupación mientras la enfermera preparaba la comida del rey. 'La voz que nadie oye' fue lo único que podía recordar de todo el sueño que había tenido y ni siquiera era parte de su sueño. Según le había preguntado Mariam-Yandit II cuando se estabilizó después que le dieran un calmante, eso es lo que había gritado antes de entrar en una crisis. La enfermera terminó de ordenar la comida por colores y sabores, como lo exigía la dieta, no del hospital, sino que le habían recetado a petición de su madre. Era difícil decirle que no a una madre, peor a la reina. La enfermera salió de la habitación, la puerta se ajustó e inmediatamente su suegra se le acercó. —Rey, mi señor, ¿podría decirme qué significa lo que dijo al despertar?— Su tono era suave, como si lo que le doliera a Marwan fuera el oído y no la cabeza de tanto pensar. El joven rey solo negó con la cabeza. Mariam-Yandit II volvió a ver a su madre quien también se acercó. Marwan notó que su madre había abandonado las vestiduras reales y la corona para ser una mujer común, con un vestido sencillo y en lugar de corona su hijab negro. Marwan miró los pliegues arrugados en su vestido y las sombras negras en sus ojos. Todas estaban en vestimentas civiles, su suegra con un vestido y velas sobre él con un velo negro transparente sobre la cabeza rapada y su prometida con unos pantalones, abrigo grande y zapatillas dejando su cabello en guedejas al descubierto. Marwan sonrió ligeramente al ver su esfuerzo. Gracias, pensó. —Hijo, después de lo que te pasó en el palacio por el enfrentamiento, creemos que tus palabras al despertar y tu reacción pueden estar conectadas con el altercado que sufriste— le vino de golpe a su memoria el momento en que abrazaba a Mariam-Yandit II y recibía un golpe en la espalda. Lo recordaba rápido, indoloro, pero frío en la piel. Marwan miró a su prometida quien bajó la mirada. —Quiero que me dejen a solas con mi prometida— dijo Marwan. Las dos mujeres se miraron y, cuando la reina iba a intervenir, Mariam-Yandit I levantó la mano y tomó del hombro a Neftis. Ambas salieron de la habitación con el semblante caído, más la reina que su suegra. Pasó un momento antes de que dijeran nada. El sonido monótono inundó el silencio incómodo en la habitación. Marwan buscaba los ojos de la joven Tai—Seiti, pero ella hacía como que miraba cualquier lugar. Marwan se movió de la cama causando que ella reaccionara con un sobresalto repentino. —No debe moverse— dijo, con los párpados muy abiertos del susto. —Mariam, no te culpo por absolutamente nada— dijo Marwan tajante como deletreando sus palabras para que quedara claro. —Pero debería, por mi culpa está así— dijo bajando la cabeza, su voz se quebraba palabra a palabra. —Estoy bien, vivo y eso es más de lo que agradecer a dios. Mira— el joven rey se levantó de la camilla camin...`
+  },
+  8: {
+    num: 8,
+    title: `Síntomas`,
+    text: `sin ingerir ningún alimento para el procedimiento de la resonancia— la joven Tai-Seiti se mordió los labios. Marwan fue colocado por los enfermeros en la camilla haciendo un rechinar cuando su cuerpo estaba completamente sobre ella. Marwan se quedó viendo mientras lo llevaban fuera de la habitación el rostro de su madre, suegra y prometida. Las lágrimas en el rostro de su madre, las mejillas rojas y el moqueo constante. Marwan tragó con pesadez sintiendo un nudo en su garganta. Las había preocupado, no solo por mantenerse callado al ocultar su habilidad, sino también por haber permitido que algo así sucediera. En su mente la situación volvió a suceder, solo que no cubría a su prometida, sino que ella lo hacía por él. Marwan sacudió la cabeza y cerró los ojos ante esa imagen. Tengo que ser más fuerte, afirmó teniendo una imagen de la espada Khopesh en su cabeza. Pero un escalofrío, como el caminar de una araña por su piel, le recorrió el cuerpo cuerpo al recordar el sueño que había tenido Pasaron varias linternas a una velocidad de prisa, el sonido de las ruedas había vuelto y con él el dolor en los oídos. Levantó un poco la cabeza encontrándose con un letrero rojo que decía ‘habitación de resonancia’ cuyas puertas cruzaron de prisa. En ese lugar ya casi no se veían personas caminando como en las otras parte de los pasillos atrás. La camilla giró a una puerta que el doctor abrió quedándose fuera mientras los enfermeros lo metían. Se detuvieron cerca de la máquina de resonancia. Marwan se levantó, pero los enfermeros le detuvieron de inmediato. —Alto, no debe hacer ningún esfuerzo, joven rey— dijo la mujer regordeta. —Nosotros nos encargaremos— dijo el hombre recio poniendo primero el cuerpo de Marwan de una levantada y después sus piernas. Él hombre se fue con la camilla mientras la enfermera sujetaba al rey a la máquina por la cabeza, brazos y pies. Cuando terminó la enfermera abandonó la habitación. Marwan se encontró inmovilizado en todos sus miembros —No se mueva, por favor tampoco trague saliva. Manténgase calmado, será un proceso rápido e indoloro— dijo una voz desde un micrófono. Solamente estaba el joven rey en esa habitación. La máquina comenzó a moverse en donde estaba recostado Marwan. A pesar de la advertencia de la voz en el micrófono los movimientos eran bruscos y el ruido como el de un auto manejando en una carretera llena de baches. La luz roja pasó por la cara de Marwan hasta que se detuvo estando en su cuello. ---- —Deberías apelar a los sabios y al poder de Zanich, no a los médicos— dijo Mariam-Yandit I a Neftis. —El no puede resolver lo que pasó porque va más allá de sus límites como doctor. No lo pueden explicar, ¿por qué decidiste permitir la resonancia?— Mariam-Yandit II vio como su madre le hablaba con decisión sobre lo que había ocurrido en la habitación. Neftis estaba con la cabeza gacha, sujetando un rosario con una cruz Ankh. Su mano se aferraba fuerte al rosario, pero su agarre era tembloroso. —¡Mariam!— intervino Neftis con voz fuerte. La joven Tai-Seiti vio como varios en la sala de espera miraban en su dirección por el grito. Su madre se quedó boquiabierta. —Mariam… por favor, déjame terminar mi rezo en paz, ¿si...`
+  },
+  9: {
+    num: 9,
+    title: `Jeroglíficos`,
+    text: `Neferu Basemat intentó tomar la lata de café cuando bajó en la máquina, pero le dolió hacer el enfermo abdominal. Mariam-Yandit II la detuvo con su mano. Ahí estaba la sobrina del clérigo que le había detenido, pero también ayudó en la batalla contra el intruso. No sabía si gritarle y agradecerle por lo que había hecho. Le miró los vendajes alrededor del torso y sonrió. Con heridas como esa creo que ya tiene suficiente castigo, pensó —¿Qué pasa con mis vendajes?— dijo al notar a dónde iba la mirada de la joven Tai-Seiti. —No mucho, solo pienso que son heridas impropias para una monja como tú— Neferu puso los ojos en blanco y se detuvo al intentar responder. Respiró y luego continuó. —Es novicia y eso no importa ahora. Quiero que me digas todo lo que sabes sobre el por qué lo oculta— Mariam-Yandit II se agachó y tomó la lata de café, metió un dinar en la ranura y apretó un jugo en lata que bajó rápido. —Veo que no es solo el intruso a quien quieres investigar. ¿Se te hace costumbre, Neferu?— dijo Mariam-Yandit II con una sonrisa sarcástica para luego darse la vuelta teniendo dos latas de café en mano y bebiendo su jugo. —Si no me dices, le diré a la reina Neftis y a tu madre que Marwan está ocultando el verdadero motivo de su síntomas— Mariam-Yandit II se detuvo en seco. Su rostro se arrugó, pero exhaló calmando su temple. Si no mantenía la compostura terminaría muy mal al golpear a la joven ‘novicia’, pero por otro lado no podía permitirse que el secreto que le confió Marwan terminase en boca de todos. Ser un buen confidente también es parte de su labor como la futura reina. La joven Tai-Seiti se acercó a Neferu. —¿Por qué dices que él oculta el verdadero motivo? ¿Juzgas a tu rey de deshonesto, no-vi-cia?— Mariam-Yandit II deletreó esas palabras con una ira creciente dentro de sí. No solo le había negado su oportunidad de devolver el pago por una falta a Neftis al traer la cabeza del agresor, sino que ahora amenazaba la integridad de su rey. —Porque yo vi algo extraño en él cuando era llevado en la camilla hacia la habitación de resonancia y además …— Neferu Basemat se detuvo, volvió a mirar a su alrededor, nadie estaba pendiente a su conversación a esas altas horas de la noche. —Yo soy una vidente y profeta al igual que tu madre—. El rostro de la joven Tai-Seiti se mostró confuso y expectante hacia tal afirmación. Si hablaba en serio, no era a tomar a broma lo que había visto, ¿pero no sería una treta? Era novicia, no monja por lo que su garantía de veracidad se podría poner en duda. Mariam-Yandit II meditó unos momentos. —Un momento, si es así, entonces será mejor que te lleve a hablar con él. No pienso traicionar la confianza de mi rey contándote— afirmó a lo que Neferu asintió satisfecha. —Antes debo entregar éstas latas y comprar algo más— —No creo que el café sea buena idea para una situación como esta— dijo con una mirada incrédula. —Pues no lo hubieras presionado en un principio— replicó Mariam-Yandit II irritada. —No sabía que era para la reina y tu madre— se encogió de hombros. La joven Tai-Seiti frunció el ceño y exhaló como toro rabioso por su nariz. —Compra jugos, si tienes más dinares y algo ligero para irnos a visitarlo lo más ...`
+  },
+  10: {
+    num: 10,
+    title: `Conectados`,
+    text: `—¿Qué acaba de pasarnos?— preguntó Mariam—Yandit II jadeante como si hubiera corrido una maratón, sosteniendo su cabeza y con los párpados muy abiertos. Los sollozos de Neferu continuaban y se había juntado al abrazar sus piernas en el suelo. Marwan miró su mano encontrándose con la interfaz azul circular en la que aparecía la joya azul, junto a la Khopesh, entre las opciones y otras dos que estaban cerradas con candados. Levantó la mano, pero se detuvo. Una imagen llegó a su mente como sobreponiéndose a su visión: 「Dos niños, una niña delgada y alta, de piel muy oscura y el otro un niño pequeño, con el cabello largo y lacio, corrían alrededor de la piscina. La mano del pequeño fue detenida por una mujer, Neftis, y la niña fue atrapada por otra, Mariam—Yandit I quien la cargó en brazos cuando reía y miraba como atrapaban a el pequeño de piel clara. Ellas tenían ropas ligeras, más transparentes, pero largas con velos, togas y sobre sus cabezas sombreros de ala ancha para playa. Otro niño, de piel muy oscura, chapoteaba en el agua y nadando de un lado a otro creaba remolinos. Neftis agarró al pequeño y lo llevó debajo de la sombrilla. Con un movimiento rápido, sin dejar de sostenerlo, apretó un envase blanco que soltó una crema del mismo color sobre su piel. El niño se conmovió haciendo un gesto de asco al sentir el frío sobre su piel. —Mami, eso se siente asqueroso— dijo el joven rey. Neftis seguía untando la crema por el brazo, torso, piernas y cara hasta parecer como si estuviera enjabonado su cuerpo. Marwan se quitó parte sobre los párpados para poder ver, pero sus manos fueron detenidas. —Oye, no te lo quites tan pronto, tienes que esperar unos 15 minutos hasta que haga efecto en tu piel y no se te quite en el agua— dijo ella sentando al niño entre sus piernas. Mariam—Yandit I se acercó con la niña en brazos caminando lentamente y con esfuerzo daba los pasos, mientras arrugaba el rostro bajo el solo. Se acercó a la sombrilla de Neftis. Su hija luchaba por sacarse del agarre en que la tenía, mientras el otro niño en la piscina reía. —Cuidado de piel completa, tu si que no escatimas en ello— dijo Mariam—Yandit I, agachándose para tomar un poco de la piel del joven rey. —Con ese color y bajo este sol, mucho no es demasiado. Tal vez deberías hacer lo mismo con Mariam— Neftis sacó un jugo de carrizo de una hilera debajo de la silla, sacó un jugo, puso el carrizo y lo sostenía mientras el joven rey sorbía. Trató de intentar quitarlo de su mano, pero ella lo repelió. —Alí, ¿quieres un poco de jugo tú también? Vamos, ven para acá— el niño salió del agua y caminó en su dirección. —No, esta niña y yo tenemos una protección natural, me basta con el aerosol que nos rociamos hace un momento— Mariam—Yandit I se incomodó y casi se cae del hombro su hija por el forcejeo. —Pandora y sus productos extraños, no me fío del todo tratándose de ella— respondió, Mariam—Yandit I se encogió de hombros. Neftis le entregó el jugo a Alí en su mano quien solo usó el carrizo para destapar, mas no para beberlo. —Pero aún así le diste tu espada y también la joya azul. ¡Oye! ¡No seas tan inquieta, Mariam!— dijo bajándole por fin. Neftis sacó otro jugo. —No gracias, mi seño...`
+  },
+  11: {
+    num: 11,
+    title: `Maldición`,
+    text: `—Esa es la visión que recibí, un reino, el nuestro, en donde las personas que no tienen sombra se desvanecen bajo el sol. Eso fue lo que ví— habló Neferu cubriendo sus ojos. —¿Eso es lo que significan tus palabras? ¿Pero cómo es eso posible?— dijo Mariam-Yandit II mientras levantaba el brazo de Marwan y miraba el suelo esperando ver algo, pero no aparecía nada. —En verdad no está tu sombra, ¡no aparece!— se alarmó Mariam moviendo brazo y brazo y comparando el movimiento con la suya. Marwan se movió por fin y a pesar de ello no le seguía nada. Aquello que siempre había dado por hecho y ni siquiera era el centro de su atención, ni la de nadie, ahora era algo que le faltaba. El joven rey miró su mano, el círculo aún a su vista. Tragó con fuerza y negando con la cabeza volvió a sentarse. —Calma, chicas, tranquilas. Es solo una sombra, solo mi sombra. Vamos a relajarnos— dijo Marwan a pesar de que el corazón quería salirse de su pecho. Si la visión de Neferu era literal, tendría que evitar la luz del sol a toda costa. Comenzó a darle una comenzó repentina en la espalda. —Marwan, no es algo para tomar a la ligera— intervino Neferu. Mariam-Yandit II notó que Marwan se rascaba con demasiada fuerza. Detuvo su mano quien seguía moviendo los dedos. —Según mis antiguos ancestros la sombra era importante, una parte del alma física, que viajaba al más allá y tenía conexión con el dios Anubis. —Si, pero son mitos, ficciones de demonios. ¿Cómo puede ser real aquí?— Preguntó Mariam-Yandit II. Marwan comenzó a retorcerse, la comezón había pasado de un simple picor en la piel a un ardor que se esparcía dentro de su espalda. El rostro del joven rey se arrugó de dolor, sus dientes se apretaron y un quejido de dolor le acompañó. El dolor comenzaba a palpitar como si de un corazón se tratase. Su prometida rompió de un tirón la ropa del hospital, pero no veía nada. —Marwan, ¿qué te ocurre?— El joven rey cayó de la camilla al suelo, sus manos temblaban y sus puños se cerraban sujetando la nada. Mariam-Yandit II lo sujetó tratando de darle la vuelta. —¡No le des la vuelta!— intervino Neferu quien, juntando sus manos, respiró hondo y dijo: —Revela lo oculto, muestra el mal escondido— su mano derecha comenzó a irradiar el fuego carmesí. Se acercó a Marwan y sobre su espalda pasó la mano, Sobre él apareció un círculo de jeroglífico tatuado en el lugar que se rascaba marwan y en medio del círculo una imagen de Anubis tomando en manos un ave con cabeza humana. —¿Qué es eso?— Los párpados de Mariam-Yandit II se abrieron y, al intentar tocar las marcas en jeroglífico se sobrepusieron a sus manos desapareciendo. Y al quitarlas volvían a su lugar. —Es el símbolo de la sombra de Marwan en jeroglífico, no sé qué dice, pero sí sé que el ataque que recibió fue para quitarle la sombra— Neferu acercó más su mano a la espalda de Marwan, pero su fuego se volvió morado y violento lo que hizo apartar a Mariam. Neferu quitó su mano, el fuego desapareció y acercando su cabeza al oído de Marwan le susurró unas palabras. El joven rey dejó de estremecerse y quedó inconsciente en el suelo. La marca en su espalda desapareció. —¿Qué le hiciste?— dijo Mariam-Yandit II atrayendo a Marwan a sus pi...`
+  },
+};
+
+
+let currentChapter = 1;
+let fontSize = 16;
+const totalChapters = 11;
+
+function renderChapterText(text) {
+  // Format RPG boxes
+  let formatted = text.replace(/\[([^\]]+)\]/g, '<span class="rpg-box">[$1]</span>');
+  // Format em-dash dialogue
+  formatted = formatted.replace(/(—[^—
+]+—?)/g, '<span class="dialogue">$1</span>');
+  return formatted;
+}
+
+function loadChapter(num) {
+  currentChapter = num;
+  const ch = CHAPTERS[num];
+  if (!ch) return;
+
+  document.getElementById('chapterNum').textContent = `Capítulo ${num}`;
+  document.getElementById('chapterTitle').textContent = ch.title;
+  
+  const textEl = document.getElementById('chapterText');
+  textEl.innerHTML = renderChapterText(ch.text);
+
+  // Update pills
+  document.querySelectorAll('.ch-pill').forEach(p => {
+    p.classList.toggle('active', parseInt(p.dataset.ch) === num);
+  });
+
+  // Update progress
+  const pct = Math.round((num / totalChapters) * 100);
+  document.getElementById('progressFill').style.width = pct + '%';
+  document.getElementById('progressLabel').textContent = `${num} / ${totalChapters}`;
+
+  // Update nav buttons
+  document.getElementById('btn-prev').disabled = num <= 1;
+  document.getElementById('btn-next').disabled = num >= totalChapters;
+
+  // Scroll to reader body
+  const rb = document.querySelector('.reader-body');
+  if (rb) rb.scrollTo({top:0});
+}
+
+function changeChapter(delta) {
+  const next = currentChapter + delta;
+  if (next >= 1 && next <= totalChapters) loadChapter(next);
+}
+
+function changeFontSize(delta) {
+  fontSize = Math.max(12, Math.min(22, fontSize + delta));
+  document.getElementById('chapterText').style.fontSize = fontSize + 'px';
+}
+
+// Build chapter pills
+function buildPills() {
+  const list = document.getElementById('chapterList');
+  for (let i = 1; i <= totalChapters; i++) {
+    const btn = document.createElement('button');
+    btn.className = 'ch-pill' + (i === 1 ? ' active' : '');
+    btn.textContent = `Cap. ${i}`;
+    btn.dataset.ch = i;
+    btn.onclick = () => loadChapter(i);
+    list.appendChild(btn);
+  }
+}
+
+// Ambient hieroglyphs canvas
+function initCanvas() {
+  const canvas = document.getElementById('ambient-canvas');
+  const ctx = canvas.getContext('2d');
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  const glyphs = ['𓂀','𓆣','𓅃','𓁹','𓇯','𓏺','𓆙','𓋴','𓃀','𓇋'];
+  const particles = [];
+
+  for (let i = 0; i < 30; i++) {
+    particles.push({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      g: glyphs[Math.floor(Math.random() * glyphs.length)],
+      s: 12 + Math.random() * 20,
+      a: Math.random() * 0.6 + 0.1,
+      vy: -0.15 - Math.random() * 0.3,
+      life: Math.random()
+    });
+  }
+
+  function draw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#C8941A';
+    particles.forEach(p => {
+      p.y += p.vy;
+      p.life += 0.002;
+      if (p.y < -40) { p.y = canvas.height + 20; p.x = Math.random() * canvas.width; }
+      const alpha = p.a * Math.abs(Math.sin(p.life));
+      ctx.globalAlpha = alpha;
+      ctx.font = `${p.s}px serif`;
+      ctx.fillText(p.g, p.x, p.y);
+    });
+    requestAnimationFrame(draw);
+  }
+  draw();
+
+  window.addEventListener('resize', () => {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  });
+}
+
+// Fade-in on scroll
+function initFade() {
+  const els = document.querySelectorAll('.fade-in');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) {
+        setTimeout(() => e.target.classList.add('visible'), i * 80);
+        obs.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  els.forEach(el => obs.observe(el));
+}
+
+// Init
+buildPills();
+loadChapter(1);
+initCanvas();
+initFade();
+</script>
+</body>
+</html>
